@@ -7,13 +7,13 @@ function load() {
 
   xhr.open("GET", `data.txt`, true);
 
-  xhr.onprogress(() => {
+  xhr.onprogress= function() {
     loadingDiv.style.display = "block";
     const text = "Reading file data.please wait...";
     const h3 = document.createElement("h3");
     h3.appendChild(document.createTextNode(text));
     loadingDiv.appendChild(h3);
-  }),
+  },
     // older syntax need to check for state 4 for success & proceed
 
     // xhr.onreadystatechange = function() {
@@ -29,7 +29,7 @@ function load() {
     // };
 
     // OLDER SYNTAX REPLACED BY ONLOAD
-    xhr.onload(() => {
+    xhr.onload= function() {
       if (this.status === 200) {
         loadingDiv.style.display = "none";
         resultsDiv.style.display = "block";
@@ -41,9 +41,10 @@ function load() {
         card.appendChild(cardBody);
         resultsDiv.appendChild(card);
       }
-    }),
-    xhr.onerror(() => {
+    },
+    
+    xhr.onerror= function() {
       window.alert("error reading file!");
-    }),
+    },
     xhr.send();
 }
